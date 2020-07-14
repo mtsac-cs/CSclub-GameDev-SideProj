@@ -1,5 +1,6 @@
 ﻿//using System.Collections;
 //using System.Collections.Generic;
+using System.Security.Cryptography;
 using System.Threading;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -20,10 +21,13 @@ public class Bird : MonoBehaviour
     }
     private void Update()
     {
-        float lowerBound = -5;
-        float upperBound = 5;
-        float leftBound = -10;
-        float rightBound = 10;
+        float lowerBound = -20;
+        float upperBound = 20;
+        float leftBound = -20;
+        float rightBound = 20;
+
+        GetComponent<LineRenderer>().SetPosition(0, transform.position);
+        GetComponent<LineRenderer>().SetPosition(1, _initialPosition);
 
         if (_birdWasLaunched && GetComponent<Rigidbody2D>().velocity.magnitude <= 0.1)
         {
@@ -39,10 +43,12 @@ public class Bird : MonoBehaviour
 
     private void OnMouseDown()
     {
+        GetComponent<LineRenderer>().enabled = true;
         GetComponent<SpriteRenderer>().color = Color.red;
     }
     private void OnMouseUp()
     {
+        GetComponent<LineRenderer>().enabled = false;
         GetComponent<SpriteRenderer>().color = Color.white;
 
         Vector2 directionToInitialPosition = _initialPosition - transform.position;
