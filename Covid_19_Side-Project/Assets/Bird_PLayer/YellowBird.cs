@@ -21,7 +21,11 @@ public class YellowBird : MonoBehaviour
     private void Update()
     {
 
-        if(_birdWasLaunched && GetComponent<Rigidbody2D>().velocity.magnitude <= .1)
+        GetComponent<LineRenderer>().SetPosition(1, _intitialPosition);
+        GetComponent<LineRenderer>().SetPosition(0, transform.position);
+
+
+        if (_birdWasLaunched && GetComponent<Rigidbody2D>().velocity.magnitude <= .1)
         {
             _timeSittingAround += Time.deltaTime;
         }
@@ -41,6 +45,8 @@ public class YellowBird : MonoBehaviour
     private void OnMouseDown()
     {
         GetComponent<SpriteRenderer>().color = Color.red;
+
+        GetComponent<LineRenderer>().enabled = true;
     }
 
     private void OnMouseUp()
@@ -53,6 +59,9 @@ public class YellowBird : MonoBehaviour
         GetComponent<Rigidbody2D>().gravityScale = 1;
 
         _birdWasLaunched = true;
+
+        GetComponent<LineRenderer>().enabled = false;
+
     }
 
     private void OnMouseDrag()
